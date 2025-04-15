@@ -12,6 +12,9 @@ class ResponseStaticTest {
 
     @Test
     void responseIndexPage() {
+        /**
+         * resources에서 index.html을 찾을 수 있게 한다.
+         */
         var response = RestAssured
             .given().log().all()
             .when().get("/")
@@ -22,6 +25,9 @@ class ResponseStaticTest {
 
     @Test
     void responseStaticPage() {
+        /**
+         * resources/static에서 static.html에 접근 가능하게 한다.
+         */
         var response = RestAssured
             .given().log().all()
             .when().get("/static.html")

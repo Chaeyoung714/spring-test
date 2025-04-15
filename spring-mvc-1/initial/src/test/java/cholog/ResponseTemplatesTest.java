@@ -12,12 +12,15 @@ class ResponseTemplatesTest {
 
     @Test
     void responseTemplatesHelloPage() {
+        /**
+         * MemberController.world()를 완성한다.
+         */
         var response = RestAssured
             .given().log().all()
-            .when().get("/hello?name=Brie")
+            .when().get("/hello?name=moda")
             .then().log().all().extract();
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.asString()).contains("Hello, Brie!");
+        assertThat(response.asString()).contains("Hello, moda!");
     }
 }

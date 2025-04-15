@@ -1,0 +1,10 @@
+spring-mvc1
+spring-mvc-2
+spring-jdbc-1
+spring-core-1
+spring-mvc-3
+spring-auth-1
+spring-mvc-4
+spring-data-jpa-1
+spring-data-jpa-2
+spring-http-client-1

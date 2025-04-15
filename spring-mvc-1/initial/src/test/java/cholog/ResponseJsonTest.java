@@ -12,6 +12,9 @@ class ResponseJsonTest {
 
     @Test
     void responseJson() {
+        /**
+         * MemberController.json()를 완성한다.
+         */
         var response = RestAssured
             .given().log().all()
             .when().get("/json")
