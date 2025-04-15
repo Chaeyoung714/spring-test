@@ -12,6 +12,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class CRUDTest {
+    /**
+     * MemberController 메서드를 완성한다
+     */
     @Test
     void create() {
         var response = RestAssured
