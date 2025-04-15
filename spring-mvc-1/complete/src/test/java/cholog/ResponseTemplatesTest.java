@@ -20,4 +20,15 @@ class ResponseTemplatesTest {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.asString()).contains("Hello, Brie!");
     }
+
+    @Test
+    void responseTemplatesHelloPageWithoutQuery() {
+        var response = RestAssured
+                .given().log().all()
+                .when().get("/hello")
+                .then().log().all().extract();
+
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.asString()).contains("Hello, World!");
+    }
 }

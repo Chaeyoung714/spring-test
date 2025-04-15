@@ -13,7 +13,7 @@ class ResponseStaticTest {
     @Test
     void responseIndexPage() {
         /**
-         * resources에서 index.html을 찾을 수 있게 한다.
+         * resources 전체에서 index.html을 찾을 수 있게 한다.
          */
         var response = RestAssured
             .given().log().all()
