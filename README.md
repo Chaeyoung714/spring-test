@@ -1,6 +1,6 @@
-spring-mvc1
-spring-mvc-2
-spring-jdbc-1
+spring-mvc1 ok
+spring-mvc-2 ok
+spring-jdbc-1 ok
 spring-core-1
 spring-mvc-3
 spring-auth-1

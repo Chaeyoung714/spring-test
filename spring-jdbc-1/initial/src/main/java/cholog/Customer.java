@@ -4,6 +4,9 @@ public class Customer {
     private long id;
     private String firstName, lastName;
 
+    public Customer() {
+    }
+
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,5 +28,17 @@ public class Customer {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
