@@ -31,8 +31,8 @@ public class Member {
         return age;
     }
 
-    public static Member toEntity(Member member, Long id) {
-        return new Member(id, member.name, member.age);
+    public Member toEntity(Long id) {
+        return new Member(id, name, age);
     }
 
     public void update(Member newMember) {

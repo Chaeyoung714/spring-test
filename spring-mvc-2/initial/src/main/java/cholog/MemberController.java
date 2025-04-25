@@ -25,7 +25,7 @@ public class MemberController {
             @RequestBody Member memberRequest
     ) {
         // TODO: member 정보를 받아서 생성한다.
-        Member newMember = Member.toEntity(memberRequest, index.getAndIncrement());
+        Member newMember = memberRequest.toEntity(index.getAndIncrement());
         members.add(newMember);
         return ResponseEntity.created(URI.create("/members/" + newMember.getId())).build();
     }
