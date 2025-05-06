@@ -43,6 +43,7 @@ class AuthTest {
 
     @Test
     void sessionLogin() {
+        //인가과정에서 발급받은 쿠키
         String cookie = RestAssured
                 .given().log().all()
                 .param(USERNAME_FIELD, EMAIL)
@@ -50,6 +51,7 @@ class AuthTest {
                 .when().post("/login/session")
                 .then().log().all().extract().header("Set-Cookie").split(";")[0];
 
+        //인증과정
         MemberResponse member = RestAssured
                 .given().log().all()
                 .header("Cookie", cookie)
@@ -63,6 +65,7 @@ class AuthTest {
 
     @Test
     void tokenLogin() {
+        //최초 인증 -> Body에 accessToken 보냄
         String accessToken = RestAssured
                 .given().log().all()
                 .body(new TokenRequest(EMAIL, PASSWORD))
@@ -71,9 +74,10 @@ class AuthTest {
                 .when().post("/login/token")
                 .then().log().all().extract().as(TokenResponse.class).getAccessToken();
 
+        // 인가
         MemberResponse member = RestAssured
                 .given().log().all()
-                .auth().oauth2(accessToken)
+                .auth().preemptive().oauth2(accessToken)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .when().get("/members/me/token")
                 .then().log().all()

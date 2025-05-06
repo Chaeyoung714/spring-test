@@ -17,6 +17,7 @@ public class BasicAuthorizationExtractor implements AuthorizationExtractor<AuthI
             return null;
         }
 
+        //Base64 디코딩
         if ((header.toLowerCase().startsWith(BASIC_TYPE.toLowerCase()))) {
             String authHeaderValue = header.substring(BASIC_TYPE.length()).trim();
             byte[] decodedBytes = Base64.decodeBase64(authHeaderValue);

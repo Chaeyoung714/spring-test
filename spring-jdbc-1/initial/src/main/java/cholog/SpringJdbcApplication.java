@@ -8,12 +8,6 @@ public class SpringJdbcApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringJdbcApplication.class, args);
-
-        try {
-//            doSomething
-        } catch (RuntimeException e) {
-            e.getMessage();
-        }
     }
 
 }

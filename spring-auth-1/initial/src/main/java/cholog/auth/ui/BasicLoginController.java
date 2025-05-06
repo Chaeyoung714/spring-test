@@ -9,6 +9,7 @@ import cholog.auth.infrastructure.BasicAuthorizationExtractor;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -29,15 +30,22 @@ public class BasicLoginController {
      * accept: application/json
      */
     @GetMapping("/members/me/basic")
-    public ResponseEntity<MemberResponse> findMyInfo(HttpServletRequest request) {
+    public ResponseEntity<MemberResponse> findMyInfo(
+            HttpServletRequest request
+    ) {
         // TODO: authorization 헤더의 Basic 값에 있는 email과 password 추출 (hint: authorizationExtractor 사용)
-        String email = "";
-        String password = "";
 
+        //요청한 이메일/패스워드 추출
+        AuthInfo extract = authorizationExtractor.extract(request);
+        String email = extract.getEmail();
+        String password = extract.getPassword();
+
+        //이메일/패스워드가 맞는지 확인
         if (authService.checkInvalidLogin(email, password)) {
             throw new AuthorizationException();
         }
 
+        //이메일/패스워드가 맞으면 이에 맞는 사용자 식별
         MemberResponse member = authService.findMember(email);
         return ResponseEntity.ok().body(member);
     }

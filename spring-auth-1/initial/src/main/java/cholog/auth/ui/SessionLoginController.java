@@ -8,9 +8,11 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 @RestController
 public class SessionLoginController {
@@ -34,16 +36,19 @@ public class SessionLoginController {
      * email=email@email.com&password=1234
      */
     @PostMapping("/login/session")
-    public ResponseEntity<Void> sessionLogin(HttpServletRequest request, HttpSession session) {
+    public ResponseEntity<Void> sessionLogin(
+            HttpSession session,
+            @RequestParam(USERNAME_FIELD) String email,
+            @RequestParam(PASSWORD_FIELD) String password
+    ) {
         // TODO: HttpRequest로 받은 email과 password 추출
-        String email = "";
-        String password = "";
-
         if (authService.checkInvalidLogin(email, password)) {
             throw new AuthorizationException();
         }
 
+        //인증 성공
         // TODO: Session에 인증 정보 저장 (key: SESSION_KEY, value: email값)
+        session.setAttribute("SESSION_KEY", email);
 
         return ResponseEntity.ok().build();
     }
@@ -56,9 +61,11 @@ public class SessionLoginController {
      * accept: application/json
      */
     @GetMapping("/members/me/session")
-    public ResponseEntity<MemberResponse> findMyInfo(HttpSession session) {
+    public ResponseEntity<MemberResponse> findMyInfo(
+            HttpSession session
+    ) {
         // TODO: Session을 통해 인증 정보 조회 (key: SESSION_KEY)
-        String email = "";
+        String email = (String) session.getAttribute("SESSION_KEY");
         MemberResponse member = authService.findMember(email);
         return ResponseEntity.ok().body(member);
     }

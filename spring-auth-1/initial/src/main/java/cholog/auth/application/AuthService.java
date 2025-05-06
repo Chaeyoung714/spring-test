@@ -26,8 +26,11 @@ public class AuthService {
     }
 
     public MemberResponse findMemberByToken(String token) {
-        String payload = jwtTokenProvider.getPayload(token);
-        return findMember(payload);
+        if (jwtTokenProvider.validateToken(token)) {
+            String payload = jwtTokenProvider.getPayload(token);
+            return findMember(payload);
+        }
+        throw new IllegalArgumentException();
     }
 
     public TokenResponse createToken(TokenRequest tokenRequest) {
