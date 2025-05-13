@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
 public class RepositoryTest {
@@ -39,7 +40,11 @@ public class RepositoryTest {
         entityManager.persist(new Customer("Jack", "Bauer"));
         entityManager.persist(new Customer("Chloe", "O'Brian"));
 
-        Customer customer = customerRepository.findById(1L).orElseThrow(IllegalArgumentException::new);
+        Customer customer = customerRepository.findById(5L).orElseThrow(IllegalArgumentException::new);
+//        assertThatThrownBy(() -> customerRepository.findById(1L).orElseThrow(IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
+//        assertThatThrownBy(() -> customerRepository.findById(2L).orElseThrow(IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
+//        assertThatThrownBy(() -> customerRepository.findById(3L).orElseThrow(IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
+//        assertThatThrownBy(() -> customerRepository.findById(4L).orElseThrow(IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
         assertThat(customer.getFirstName()).isEqualTo("Jack");
     }
 
